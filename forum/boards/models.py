@@ -36,9 +36,7 @@ class Post(models.Model):
     )
     updated_by = models.ForeignKey(
         User,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
+        on_delete=models.CASCADE,
         related_name="+",
     )
 
