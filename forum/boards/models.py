@@ -6,6 +6,9 @@ class Board(models.Model):
     name = models.CharField(max_length=30, unique=True)
     description = models.CharField(max_length=100)
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Thread(models.Model):
     subject = models.CharField(max_length=255)
@@ -16,6 +19,9 @@ class Thread(models.Model):
     starter = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="threads"
     )
+
+    def __str__(self) -> str:
+        return self.subject
 
 
 class Post(models.Model):
@@ -29,5 +35,12 @@ class Post(models.Model):
         User, on_delete=models.CASCADE, related_name="posts"
     )
     updated_by = models.ForeignKey(
-        User, null=True, on_delete=models.CASCADE, related_name="+"
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="+",
     )
+
+    def __str__(self) -> str:
+        return self.message
